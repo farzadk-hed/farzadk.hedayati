@@ -1,0 +1,253 @@
+
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('fonts/SansationBold.woff') format('woff');
+    font-weight: 500;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'MyCustomFont', sans-serif;
+    background-image: url(img/background.jpg);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Ensures the body takes up the full viewport height */
+    margin: 0; /* Eliminates default margin for body */
+}
+header{
+    text-align: center;
+    font-weight: bold;
+    background: radial-gradient(circle, rgb(55, 204, 192) 1%, rgba(215,216,249,1) 99%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* This hides the normal text color */
+    animation: fadeInSlideDown 1.5s ease-in-out;
+}
+@keyframes fadeInSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.div1parent {
+    display: flex;
+    justify-content:center; /* Adjusts space between columns */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 50px;
+    animation: fadeInSlideDown 1.5s ease-in-out;
+}
+@keyframes fadeInSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ProPic {
+    align-items: center;
+    max-width: 40%;
+    padding-right:10px;
+}
+
+.icons {
+    max-width: 50%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    padding-left: 10px;
+}
+
+.icon {
+    width: 80px;
+    height: 80px;
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+.icon:hover {
+    transform: scale(1.2); /* Scale to 120% on hover */
+}
+.summary{
+    background-color: rgba(25, 25, 25, 0.95); /* Grey background with 20% opacity */
+    margin-left: 15%;
+    margin-right: 15%;
+    align-items: center;
+    color: aqua;
+    border-radius: 35px;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease-in-out forwards;
+    animation-delay: 1s; /* Delay entrance for these sections */
+}
+.summary p , h2 {
+    line-height: 1.6;
+    padding: 10px;
+    font-weight: 200;
+}
+.div2parent{
+    display: flex;
+    justify-content:center; /* Adjusts space between columns */
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+.socials{
+    background-color: rgba(25, 25, 25, 0.95); /* Grey background with 20% opacity */
+    margin-left: 15%;
+    padding-bottom: 50px;
+    padding-left: 5%;
+    display: inline-block;
+    align-items: center; /* Horizontally center elements */
+    justify-content: center; /* Vertically center elements */
+    color: aqua;
+    border-radius: 35px;
+    height: 100%;
+    flex: 1;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease-in-out forwards;
+    animation-delay: 1.3s; /* Delay entrance for these sections */
+}
+.socials h3{
+    text-align: center;
+    padding-top: 20px;
+    padding-right: 10%;
+}
+.socialicons{
+    padding: 10px;
+    max-width: 80px;
+    align-items: center;
+    justify-items: center;
+    transition: transform 0.3s ease; /* Smooth transition */
+
+}
+.socialicons:hover {
+    transform: scale(1.2); /* Scale to 120% on hover */
+}
+.sail-to-the-moon{
+    background-color: rgba(25, 25, 25, 0.95); /* Grey background with 20% opacity */
+    margin-left: 25%;
+
+    display: inline-block;
+    flex-direction: column; /* Ensure vertical stacking */
+    align-items: center; /* Horizontally center elements */
+    justify-content: center; /* Vertically center elements */
+    color: aqua;
+    border-radius: 35px;
+    padding: 10px;
+    opacity: 0;
+
+    animation: fadeInUp 1.5s ease-in-out forwards;
+    animation-delay: 1.6s; /* Delay entrance for these sections */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+.sail-to-the-moon:hover {
+    transform: scale(1.2); /* Scale to 120% on hover */
+}
+.sail-to-the-moon h3 { 
+    text-align: center;
+}
+.moon-image{
+    width: 150px;
+    justify-content: center;
+    align-items: center;
+    padding-right: 50px;
+}
+.saillink{
+    display: inline-block;
+    flex-direction: column; /* Ensure vertical stacking */
+    align-items: center; /* Horizontally center elements */
+    justify-content: center; /* Vertically center elements */
+    flex: 1;
+}
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+footer {
+    text-align: center;
+    background-color: rgba(25, 25, 25, 0.95); /* Matches your other sections */
+    color: aqua; /* Keeps the text color consistent */
+    position: absolute;
+    bottom: 0;
+    font-size: 13px;
+    height: 40px;
+    width: auto;
+    margin-top: auto; /* Pushes footer to the bottom */
+    margin-bottom: auto;
+    position: relative;
+
+}
+footer p{
+    padding-bottom: 10px;
+}
+@media (max-width: 600px) {
+    .div1parent {
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: center; /* Center items horizontally */
+    }
+    body{
+        background-image: url(img/mobilebg.jpg);
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .ProPic {
+        margin-right: 0; /* Remove right margin for centered layout */
+        margin-bottom: 20px; /* Space between picture and icons */
+        max-width: 80%;
+        align-items: center;
+    }
+
+    .icons {
+        flex-direction: column; /* Stack icons vertically */
+        gap: 10px; /* Space between icons */
+        max-width: 100%;
+    }
+    .header p {
+        padding: 30px;
+    }
+
+    .header {
+        font-size: 20px; /* Smaller font size for mobile screens */
+    
+    }
+    .div2parent {
+        flex-direction: column; /* Stack sections vertically on small screens */
+        align-items: center;
+    }
+
+    .socials {
+        padding-bottom: 50px; /* Adjust padding as needed */
+        flex-direction: column;
+        gap: 10px; /* Space between icons */
+        padding: 10px;
+    }
+
+    .socialicons {
+        display: grid; /* Use grid layout */
+        grid-template-columns: repeat(3, 2fr); /* Three columns */
+        gap: 10px; /* Space between icons */
+        padding: 10px;
+    }
+}

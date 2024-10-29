@@ -1,0 +1,7 @@
+# Ignore system files
+*.log
+*.tmp
+*.swp
+
+# Ignore user directory
+/AppData/
