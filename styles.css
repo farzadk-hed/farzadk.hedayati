@@ -230,7 +230,7 @@ footer {
 footer p{
     padding-bottom: 10px;
 }
-@media (max-width: 320px) {
+@media (max-width: 600px) {
     .div1parent {
         flex-direction: column; /* Stack items vertically on small screens */
         align-items: center; /* Center items horizontally */
