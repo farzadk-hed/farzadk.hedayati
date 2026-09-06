@@ -115,13 +115,15 @@
       backdrop-filter: saturate(1.2);
     }
     .mark {
-      font-family: var(--font-display);
+      font-family: "Space Grotesk", var(--font-display);
       font-weight: 700;
       letter-spacing: -0.04em;
       text-decoration: none;
       min-height: 44px;
       display: inline-flex;
       align-items: center;
+      direction: ltr;
+      unicode-bidi: isolate;
     }
     .mark span { color: var(--accent); }
     .nav-links {
@@ -431,6 +433,8 @@
       line-height: 1.2;
       padding-bottom: 6px;
       cursor: pointer;
+      direction: ltr;
+      unicode-bidi: isolate;
     }
     .socials {
       display: flex;
