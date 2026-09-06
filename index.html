@@ -1,74 +1,635 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta Tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <!-- Title -->
-    <title>Farzad K. Hedayati</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Farzad K. Hedayati — web design, graphic design, UI/UX, and sound.">
+  <title>Farzad K. Hedayati</title>
+  <link rel="icon" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" sizes="16x16" href="favicon-16x16.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --fg: #fafafa;
+      --muted: #a1a1aa;
+      --line: #27272a;
+      --accent: #2ee6c7;
+      --accent-ink: #04221c;
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 48px;
+      --space-5: 96px;
+      --font-display: "Space Grotesk", system-ui, sans-serif;
+      --font-body: "Archivo", system-ui, sans-serif;
+      --nav-h: 64px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { margin: 0; background: var(--bg); color: var(--fg); }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 100vh;
+      cursor: none;
+    }
+    body.has-touch { cursor: auto; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button { font: inherit; }
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .skip {
+      position: absolute;
+      left: 12px;
+      top: -80px;
+      z-index: 100;
+      background: var(--accent);
+      color: var(--accent-ink);
+      padding: 12px 16px;
+      min-height: 44px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .skip:focus { top: 12px; }
 
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <!-- Optional: Different sizes for high-resolution displays -->
-    <link rel="icon" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" sizes="16x16" href="favicon-16x16.png">
+    #progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--accent);
+      z-index: 80;
+      pointer-events: none;
+    }
+
+    .cursor {
+      position: fixed;
+      width: 14px; height: 14px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 90;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+      transition: width 180ms ease, height 180ms ease, background 180ms ease;
+    }
+    .cursor.is-hot {
+      width: 44px; height: 44px;
+      background: color-mix(in oklab, var(--accent) 25%, transparent);
+    }
+    body.has-touch .cursor { display: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      height: var(--nav-h);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in oklab, var(--bg) 88%, transparent);
+      backdrop-filter: saturate(1.2);
+    }
+    .mark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-decoration: none;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .mark span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 14px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 180ms ease;
+    }
+    .nav-links a:hover { color: var(--fg); }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(to right, var(--line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      display: grid;
+      grid-template-columns: 1.4fr 0.6fr;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-copy {
+      padding: 48px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .kicker {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .display {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      line-height: 0.88;
+      font-size: clamp(56px, 12vw, 148px);
+      margin: 24px 0 0;
+      text-wrap: pretty;
+    }
+    .display .line { display: block; }
+    .lede {
+      max-width: 34ch;
+      color: var(--muted);
+      margin: 28px 0 0;
+      font-size: 18px;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .meta-col { color: var(--muted); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 20px;
+      border: 1px solid var(--fg);
+      background: var(--fg);
+      color: var(--bg);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--fg);
+    }
+    .btn-ghost:hover { background: var(--fg); color: var(--bg); }
+
+    .hero-rail {
+      border-left: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 0;
+      overflow: hidden;
+    }
+    .rail-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 24px;
+    }
+    .marquee {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      gap: 48px;
+      padding: 18px 0;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-track span {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+    .marquee-track span::after {
+      content: " / ";
+      color: var(--accent);
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    section { border-bottom: 1px solid var(--line); }
+    .chapter {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      min-height: 70vh;
+    }
+    .index {
+      border-right: 1px solid var(--line);
+      padding: 48px 20px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      position: sticky;
+      top: var(--nav-h);
+      align-self: start;
+      height: calc(100vh - var(--nav-h));
+    }
+    .chapter-body { padding: 48px 24px 80px; }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 72px);
+      letter-spacing: -0.05em;
+      line-height: 0.95;
+      margin: 0 0 24px;
+      font-weight: 700;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.8fr) 1.2fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .portrait {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: 50% 18%;
+      filter: grayscale(1) contrast(1.05);
+      border: 1px solid var(--line);
+    }
+    .about-copy p { color: var(--muted); max-width: 52ch; margin: 0 0 16px; }
+    .about-copy p.lead { color: var(--fg); font-size: 20px; }
+
+    .craft-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+    }
+    .craft-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      min-height: 56px;
+      align-items: baseline;
+    }
+    .craft-row dt {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .craft-row dd {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.4vw, 28px);
+      letter-spacing: -0.03em;
+    }
+
+    .work {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .moon {
+      width: 100%;
+      background: #000;
+      border: 1px solid var(--line);
+    }
+    .moon img { width: 100%; mix-blend-mode: screen; }
+    .work-copy p { color: var(--muted); max-width: 40ch; }
+
+    .music-wrap {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .vf {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+    .sc {
+      width: 100%;
+      min-height: 166px;
+      border: 1px solid var(--line);
+    }
+
+    .contact {
+      padding: 80px 24px 96px;
+    }
+    .mail {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 64px);
+      letter-spacing: -0.05em;
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+      line-height: 1.2;
+      padding-bottom: 6px;
+      cursor: pointer;
+    }
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 32px;
+      padding: 0;
+      list-style: none;
+    }
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 180ms ease, color 180ms ease;
+    }
+    .socials a:hover { color: var(--fg); border-color: var(--fg); }
+
+    footer {
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-rail { display: none; }
+      .chapter { grid-template-columns: 1fr; }
+      .index {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 16px 24px;
+      }
+      .about-grid, .work, .music-wrap { grid-template-columns: 1fr; }
+      .nav { padding: 0 12px; }
+      .nav-links a { padding: 0 8px; letter-spacing: 0.04em; }
+    }
+    @media (max-width: 640px) {
+      .display { font-size: 52px; }
+      .nav {
+        height: auto;
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 4px 8px 8px;
+      }
+      .nav-links {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .nav-links a { padding: 0 6px; font-size: 12px; }
+      .hero { min-height: auto; }
+      .hero-copy { padding: 28px 16px 24px; }
+      .hero-meta {
+        flex-direction: column;
+        align-items: stretch;
+        margin-top: 32px;
+      }
+      .cta-row .btn { flex: 1; }
+      .craft-row { grid-template-columns: 1fr; gap: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .marquee-track { animation: none; }
+      .btn { transition: none; }
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div id="progress" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-    <!-- Content Goes Here -->
-    <header class="header">
-        <h1 style="font-size: 70px;">Farzad K. Hedayati</h1>
-        <p style="font-size: 20px;">This is my personal website for web design, graphic design, and etc.</p>
-    </header>
+  <header class="nav">
+    <a class="mark" href="#top">FKH<span>.</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <main style="flex: 1;">
-        <div class="div1parent">
-            <div class="ProPic"><img src="img/photo_2024-10-23_15-57-36.jpg" alt="profile picture" style="width: 200px; border-radius: 80px; align-items: center;">
-            </div>
-            <div class="icons">
-                <div class="icon"><img src="img/pslogo.png" alt="psicon" style="max-width: 80px;"></div>
-                <div class="icon"><img src="img/ailogo.png" alt="aiicon" style="max-width: 80px;"></div>
-                <div class="icon"><img src="img/prlogo.png" alt="pricon" style="max-width: 80px;"></div>
-                <div class="icon"><img src="img/wplogo.png" alt="wpicon" style="max-width: 80px;"></div>
-                <div class="icon"><img src="img/jslogos.png"alt="jsicon" style="max-width: 80px;"></div>
-                <div class="icon"><img src="img/fglogo.png" alt="fgicon" style="max-width: 80px;"></div>
-            </div>
+  <main id="main">
+    <section class="hero grid-bg" id="top">
+      <div class="hero-copy">
+        <div>
+          <p class="kicker">Portfolio / 2026</p>
+          <h1 class="display" id="headline">
+            <span class="line">Farzad</span>
+            <span class="line">K. Hedayati</span>
+          </h1>
+          <p class="lede">Personal site for web design, graphic design, and the work in between.</p>
         </div>
-        
-        <div class="summary">
-            <h2>About Me</h2>
-            <p>Hi, I’m Farzad K. Hedayati,<br> a passionate web developer with a knack for creating clean, responsive designs. With expertise in WordPress and frontend technologies like HTML, CSS, and JavaScript, I bring dynamic and user-friendly websites to life. My skills extend to UI/UX design, ensuring a seamless and engaging user experience. Proficient in Figma, Photoshop, Illustrator, and Premiere, I excel in crafting visually stunning graphics, illustrations, and multimedia content. Let's build something amazing together!</p>
+        <div class="hero-meta">
+          <div class="meta-col">Web · Graphic · Sound</div>
+          <div class="cta-row">
+            <a class="btn magnetic" href="#work">See work</a>
+            <a class="btn btn-ghost magnetic" href="#contact">Contact</a>
+          </div>
         </div>
-        <div class="div2parent">
-            <div class="socials">
-                <h3>Connect with Me</h3>
-                <a href="www.linkedin.com/in/farzad-k-hedayati-89939b1b3" target="_blank"><img src="img/linkedin.png" alt="fgicon" class="socialicons"></a>
-                <a href="https://github.com/farzadk-hed/farzadk-hed" target="_blank"><img src="img/github.png" alt="fgicon" class="socialicons"></a>
-                <a href="https://www.instagram.com/farzadhed/" target="_blank"><img src="img/instagram.png" alt="fgicon" class="socialicons"></a>
-                <a href="mailto:farzadk.hedayati@outlook.com" target="_blank"><img src="img/email.png" alt="fgicon" class="socialicons"></a>
-            </div>
-            <a href="https://sailtothemoonsx.vercel.app/" target="_blank" class="saillink">
-                <div class="sail-to-the-moon">
-                    <h3>Sail to the moon project</h3>
-                    <img src="img/path-to-your-moon-image.png" alt="Moon Image" class="moon-image">
-                </div>
-            </a>
-        </div>
-        <div class="music">
-                <h3>My Music Projects</h3>
-                <a href="https://soundcloud.com/void_flow" target="_blank"><img src="img/voidflowlogo2.jpg" alt="vficon" class="vficon" style="border-radius: 35px;"></a>
-                <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/776725171&color=%230c0c0c&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #646262;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/void_flow" title="VoidFlow" target="_blank" style="color: #646262; text-decoration: none;">VoidFlow</a> · <a href="https://soundcloud.com/void_flow/isolation" title="Isolation" target="_blank" style="color: #646262; text-decoration: none; align-content: center;">Isolation</a>
-                   
-        </div>
-        
-    </main>
+      </div>
+      <aside class="hero-rail" aria-hidden="true">
+        <p class="rail-label">Web design</p>
+        <p class="rail-label">Graphic design</p>
+      </aside>
+    </section>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>WordPress</span><span>UI/UX</span><span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>Premiere</span>
+        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>WordPress</span><span>UI/UX</span><span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>Premiere</span>
+      </div>
+    </div>
+
+    <section class="chapter" id="about">
+      <div class="index">02 — About</div>
+      <div class="chapter-body">
+        <h2>About me</h2>
+        <div class="about-grid">
+          <img class="portrait reveal" src="img/portrait.jpg" width="640" height="800" alt="Portrait of Farzad K. Hedayati in a dark suit">
+          <div class="about-copy">
+            <p class="lead reveal">Hi, I’m Farzad K. Hedayati, a passionate web developer with a knack for creating clean, responsive designs.</p>
+            <p class="reveal">With expertise in WordPress and frontend technologies like HTML, CSS, and JavaScript, I bring dynamic and user-friendly websites to life. My skills extend to UI/UX design, ensuring a seamless and engaging user experience.</p>
+            <p class="reveal">Proficient in Figma, Photoshop, Illustrator, and Premiere, I excel in crafting visually stunning graphics, illustrations, and multimedia content. Let’s build something amazing together.</p>
+            <dl class="craft-list">
+              <div class="craft-row">
+                <dt>Frontend</dt>
+                <dd>HTML, CSS, JavaScript, WordPress</dd>
+              </div>
+              <div class="craft-row">
+                <dt>Design</dt>
+                <dd>UI/UX · Figma · Photoshop · Illustrator</dd>
+              </div>
+              <div class="craft-row">
+                <dt>Motion</dt>
+                <dd>Premiere · multimedia</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="work">
+      <div class="index">03 — Work</div>
+      <div class="chapter-body">
+        <h2>Selected work</h2>
+        <article class="work">
+          <div class="work-copy">
+            <p class="kicker">Featured</p>
+            <h3 class="display" style="font-size: clamp(40px, 6vw, 72px); margin: 12px 0 16px;">Sail to the Moon</h3>
+            <p>Interactive project — open it in a new tab.</p>
+            <p style="margin-top:24px;">
+              <a class="btn magnetic" href="https://sailtothemoonsx.vercel.app/" target="_blank" rel="noopener noreferrer">Open project</a>
+            </p>
+          </div>
+          <a class="moon magnetic" href="https://sailtothemoonsx.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <img src="img/moon.png" width="640" height="640" alt="Sail to the Moon project artwork">
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section class="chapter" id="music">
+      <div class="index">04 — Music</div>
+      <div class="chapter-body">
+        <h2>VoidFlow</h2>
+        <div class="music-wrap">
+          <a href="https://soundcloud.com/void_flow" target="_blank" rel="noopener noreferrer">
+            <img class="vf" src="img/voidflow.jpg" width="160" height="160" alt="VoidFlow">
+          </a>
+          <div>
+            <p class="kicker" style="margin-bottom:12px;">Isolation</p>
+            <iframe class="sc" title="VoidFlow — Isolation on SoundCloud" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/776725171&amp;color=%232ee6c7&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <p class="kicker">05 — Contact</p>
+      <h2>Let’s build something</h2>
+      <a class="mail magnetic" href="mailto:farzadk.hedayati@outlook.com">farzadk.hedayati@outlook.com</a>
+      <ul class="socials">
+        <li><a href="https://www.linkedin.com/in/farzad-k-hedayati-89939b1b3" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://github.com/farzadk-hed/farzadk-hed" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://www.instagram.com/farzadhed/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://soundcloud.com/void_flow" target="_blank" rel="noopener noreferrer">SoundCloud</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Farzad K. Hedayati</span>
+    <span>Redesign · nbg1</span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+    (function () {
+      var fine = window.matchMedia("(pointer: fine)").matches;
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!fine) document.body.classList.add("has-touch");
+
+      var bar = document.getElementById("progress");
+      function onScroll() {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+      }
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      var cur = document.getElementById("cursor");
+      if (fine) {
+        window.addEventListener("pointermove", function (e) {
+          cur.style.left = e.clientX + "px";
+          cur.style.top = e.clientY + "px";
+        }, { passive: true });
+        document.querySelectorAll("a, button").forEach(function (el) {
+          el.addEventListener("pointerenter", function () { cur.classList.add("is-hot"); });
+          el.addEventListener("pointerleave", function () { cur.classList.remove("is-hot"); });
+        });
+      }
+
+      if (reduce || typeof gsap === "undefined") return;
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from(".display .line", { y: 40, opacity: 0, duration: 0.7, stagger: 0.08, ease: "expo.out" });
+      gsap.utils.toArray(".reveal").forEach(function (el) {
+        gsap.from(el, {
+          opacity: 0, y: 16, duration: 0.45, ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 88%" }
+        });
+      });
+      var moon = document.querySelector(".moon img");
+      if (moon) {
+        gsap.fromTo(moon, { scale: 1.08 }, {
+          scale: 1, ease: "none",
+          scrollTrigger: { trigger: "#work", start: "top 80%", end: "bottom 40%", scrub: 0.8 }
+        });
+      }
+    })();
+  </script>
 </body>
-<footer>
-    <p>&copy; 2024 Farzad K. Hedayati. All rights reserved.</p>
-</footer>
 </html>
