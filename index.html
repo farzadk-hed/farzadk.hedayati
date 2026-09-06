@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,17 @@
   <link rel="icon" sizes="16x16" href="favicon-16x16.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem("fkh-lang") === "fa") {
+          document.documentElement.lang = "fa";
+          document.documentElement.dir = "rtl";
+        }
+      } catch (e) {}
+    })();
+  </script>
   <style>
     :root {
       --bg: #09090b;
@@ -26,6 +36,10 @@
       --font-display: "Space Grotesk", system-ui, sans-serif;
       --font-body: "Archivo", system-ui, sans-serif;
       --nav-h: 64px;
+    }
+    html[lang="fa"] {
+      --font-display: "Vazirmatn", system-ui, sans-serif;
+      --font-body: "Vazirmatn", system-ui, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -47,7 +61,7 @@
     }
     .skip {
       position: absolute;
-      left: 12px;
+      inset-inline-start: 12px;
       top: -80px;
       z-index: 100;
       background: var(--accent);
@@ -61,7 +75,7 @@
 
     #progress {
       position: fixed;
-      top: 0; left: 0;
+      top: 0; inset-inline-start: 0;
       height: 3px;
       width: 0%;
       background: var(--accent);
@@ -92,8 +106,9 @@
       z-index: 40;
       height: var(--nav-h);
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
+      column-gap: 8px;
       padding: 0 24px;
       border-bottom: 1px solid var(--line);
       background: color-mix(in oklab, var(--bg) 88%, transparent);
@@ -115,6 +130,7 @@
       list-style: none;
       margin: 0;
       padding: 0;
+      justify-content: flex-end;
     }
     .nav-links a {
       display: inline-flex;
@@ -131,6 +147,45 @@
       transition: color 180ms ease;
     }
     .nav-links a:hover { color: var(--fg); }
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--fg);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { border-color: var(--fg); }
+    html[lang="fa"] .nav-links a,
+    html[lang="fa"] .kicker,
+    html[lang="fa"] .btn,
+    html[lang="fa"] .meta-col,
+    html[lang="fa"] .index,
+    html[lang="fa"] .craft-row dt,
+    html[lang="fa"] .rail-label {
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    html[lang="fa"] .lang-btn { font-family: var(--font-body); letter-spacing: 0; }
+    html[lang="fa"] .lede,
+    html[lang="fa"] h2,
+    html[lang="fa"] .about-copy p,
+    html[lang="fa"] .work-copy p {
+      letter-spacing: 0;
+      line-height: 1.75;
+    }
+    html[lang="fa"] .display.latin {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      letter-spacing: -0.06em;
+    }
 
     .grid-bg {
       background-image:
@@ -176,6 +231,7 @@
       margin: 28px 0 0;
       font-size: 18px;
     }
+    html[lang="fa"] .lede { max-width: 42ch; }
     .hero-meta {
       display: flex;
       justify-content: space-between;
@@ -210,7 +266,7 @@
     .btn-ghost:hover { background: var(--fg); color: var(--bg); }
 
     .hero-rail {
-      border-left: 1px solid var(--line);
+      border-inline-start: 1px solid var(--line);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -227,6 +283,7 @@
       color: var(--muted);
       padding: 0 24px;
     }
+    html[lang="fa"] .rail-label { transform: none; }
     .marquee {
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
@@ -240,7 +297,7 @@
       animation: marquee 28s linear infinite;
     }
     .marquee-track span {
-      font-family: var(--font-display);
+      font-family: "Space Grotesk", var(--font-display);
       font-size: 18px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -262,7 +319,7 @@
       min-height: 70vh;
     }
     .index {
-      border-right: 1px solid var(--line);
+      border-inline-end: 1px solid var(--line);
       padding: 48px 20px;
       font-family: var(--font-display);
       font-size: 13px;
@@ -365,7 +422,7 @@
       padding: 80px 24px 96px;
     }
     .mail {
-      font-family: var(--font-display);
+      font-family: "Space Grotesk", var(--font-display);
       font-size: clamp(28px, 5vw, 64px);
       letter-spacing: -0.05em;
       text-decoration: none;
@@ -412,7 +469,7 @@
       .index {
         position: static;
         height: auto;
-        border-right: 0;
+        border-inline-end: 0;
         border-bottom: 1px solid var(--line);
         padding: 16px 24px;
       }
@@ -424,9 +481,12 @@
       .display { font-size: 52px; }
       .nav {
         height: auto;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr auto;
         gap: 0;
         padding: 4px 8px 8px;
+      }
+      .nav nav {
+        grid-column: 1 / -1;
       }
       .nav-links {
         display: flex;
@@ -453,44 +513,45 @@
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
   <div id="progress" aria-hidden="true"></div>
   <div class="cursor" id="cursor" aria-hidden="true"></div>
 
   <header class="nav">
     <a class="mark" href="#top">FKH<span>.</span></a>
-    <nav aria-label="Primary">
+    <nav aria-label="Primary" data-i18n-aria="nav">
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#music">Music</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about" data-i18n="navAbout">About</a></li>
+        <li><a href="#work" data-i18n="navWork">Work</a></li>
+        <li><a href="#music" data-i18n="navMusic">Music</a></li>
+        <li><a href="#contact" data-i18n="navContact">Contact</a></li>
       </ul>
     </nav>
+    <button type="button" class="lang-btn" id="lang-btn" aria-pressed="false" aria-label="Switch to Persian">فارسی</button>
   </header>
 
   <main id="main">
     <section class="hero grid-bg" id="top">
       <div class="hero-copy">
         <div>
-          <p class="kicker">Portfolio / 2026</p>
-          <h1 class="display" id="headline">
+          <p class="kicker" data-i18n="kicker">Portfolio / 2026</p>
+          <h1 class="display latin" id="headline">
             <span class="line">Farzad</span>
             <span class="line">K. Hedayati</span>
           </h1>
-          <p class="lede">Personal site for web design, graphic design, and the work in between.</p>
+          <p class="lede" data-i18n="lede">Personal site for web design, graphic design, and the work in between.</p>
         </div>
         <div class="hero-meta">
-          <div class="meta-col">Web · Graphic · Sound</div>
+          <div class="meta-col" data-i18n="meta">Web · Graphic · Sound</div>
           <div class="cta-row">
-            <a class="btn magnetic" href="#work">See work</a>
-            <a class="btn btn-ghost magnetic" href="#contact">Contact</a>
+            <a class="btn magnetic" href="#work" data-i18n="seeWork">See work</a>
+            <a class="btn btn-ghost magnetic" href="#contact" data-i18n="contactCta">Contact</a>
           </div>
         </div>
       </div>
       <aside class="hero-rail" aria-hidden="true">
-        <p class="rail-label">Web design</p>
-        <p class="rail-label">Graphic design</p>
+        <p class="rail-label" data-i18n="railWeb">Web design</p>
+        <p class="rail-label" data-i18n="railGraphic">Graphic design</p>
       </aside>
     </section>
 
@@ -502,27 +563,27 @@
     </div>
 
     <section class="chapter" id="about">
-      <div class="index">02 — About</div>
+      <div class="index" data-i18n="idxAbout">02 — About</div>
       <div class="chapter-body">
-        <h2>About me</h2>
+        <h2 data-i18n="aboutTitle">About me</h2>
         <div class="about-grid">
-          <img class="portrait reveal" src="img/portrait.jpg" width="640" height="800" alt="Portrait of Farzad K. Hedayati in a dark suit">
+          <img class="portrait reveal" src="img/portrait.jpg" width="640" height="800" alt="Portrait of Farzad K. Hedayati in a dark suit" data-i18n-alt="portraitAlt">
           <div class="about-copy">
-            <p class="lead reveal">Hi, I’m Farzad K. Hedayati, a passionate web developer with a knack for creating clean, responsive designs.</p>
-            <p class="reveal">With expertise in WordPress and frontend technologies like HTML, CSS, and JavaScript, I bring dynamic and user-friendly websites to life. My skills extend to UI/UX design, ensuring a seamless and engaging user experience.</p>
-            <p class="reveal">Proficient in Figma, Photoshop, Illustrator, and Premiere, I excel in crafting visually stunning graphics, illustrations, and multimedia content. Let’s build something amazing together.</p>
+            <p class="lead reveal" data-i18n="aboutLead">Hi, I’m Farzad K. Hedayati, a passionate web developer with a knack for creating clean, responsive designs.</p>
+            <p class="reveal" data-i18n="aboutP1">With expertise in WordPress and frontend technologies like HTML, CSS, and JavaScript, I bring dynamic and user-friendly websites to life. My skills extend to UI/UX design, ensuring a seamless and engaging user experience.</p>
+            <p class="reveal" data-i18n="aboutP2">Proficient in Figma, Photoshop, Illustrator, and Premiere, I excel in crafting visually stunning graphics, illustrations, and multimedia content. Let’s build something amazing together.</p>
             <dl class="craft-list">
               <div class="craft-row">
-                <dt>Frontend</dt>
+                <dt data-i18n="craftFront">Frontend</dt>
                 <dd>HTML, CSS, JavaScript, WordPress</dd>
               </div>
               <div class="craft-row">
-                <dt>Design</dt>
+                <dt data-i18n="craftDesign">Design</dt>
                 <dd>UI/UX · Figma · Photoshop · Illustrator</dd>
               </div>
               <div class="craft-row">
-                <dt>Motion</dt>
-                <dd>Premiere · multimedia</dd>
+                <dt data-i18n="craftMotion">Motion</dt>
+                <dd data-i18n="craftMotionVal">Premiere · multimedia</dd>
               </div>
             </dl>
           </div>
@@ -531,27 +592,27 @@
     </section>
 
     <section class="chapter" id="work">
-      <div class="index">03 — Work</div>
+      <div class="index" data-i18n="idxWork">03 — Work</div>
       <div class="chapter-body">
-        <h2>Selected work</h2>
+        <h2 data-i18n="workTitle">Selected work</h2>
         <article class="work">
           <div class="work-copy">
-            <p class="kicker">Featured</p>
-            <h3 class="display" style="font-size: clamp(40px, 6vw, 72px); margin: 12px 0 16px;">Sail to the Moon</h3>
-            <p>Interactive project — open it in a new tab.</p>
+            <p class="kicker" data-i18n="featured">Featured</p>
+            <h3 class="display latin" style="font-size: clamp(40px, 6vw, 72px); margin: 12px 0 16px;">Sail to the Moon</h3>
+            <p data-i18n="workBlurb">Interactive project — open it in a new tab.</p>
             <p style="margin-top:24px;">
-              <a class="btn magnetic" href="https://sailtothemoonsx.vercel.app/" target="_blank" rel="noopener noreferrer">Open project</a>
+              <a class="btn magnetic" href="https://sailtothemoonsx.vercel.app/" target="_blank" rel="noopener noreferrer" data-i18n="openProject">Open project</a>
             </p>
           </div>
           <a class="moon magnetic" href="https://sailtothemoonsx.vercel.app/" target="_blank" rel="noopener noreferrer">
-            <img src="img/moon.png" width="640" height="640" alt="Sail to the Moon project artwork">
+            <img src="img/moon.png" width="640" height="640" alt="Sail to the Moon project artwork" data-i18n-alt="moonAlt">
           </a>
         </article>
       </div>
     </section>
 
     <section class="chapter" id="music">
-      <div class="index">04 — Music</div>
+      <div class="index" data-i18n="idxMusic">04 — Music</div>
       <div class="chapter-body">
         <h2>VoidFlow</h2>
         <div class="music-wrap">
@@ -560,15 +621,15 @@
           </a>
           <div>
             <p class="kicker" style="margin-bottom:12px;">Isolation</p>
-            <iframe class="sc" title="VoidFlow — Isolation on SoundCloud" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/776725171&amp;color=%232ee6c7&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false"></iframe>
+            <iframe class="sc" title="VoidFlow — Isolation on SoundCloud" data-i18n-title="scTitle" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/776725171&amp;color=%232ee6c7&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false"></iframe>
           </div>
         </div>
       </div>
     </section>
 
     <section class="contact" id="contact">
-      <p class="kicker">05 — Contact</p>
-      <h2>Let’s build something</h2>
+      <p class="kicker" data-i18n="idxContact">05 — Contact</p>
+      <h2 data-i18n="contactTitle">Let’s build something</h2>
       <a class="mail magnetic" href="mailto:farzadk.hedayati@outlook.com">farzadk.hedayati@outlook.com</a>
       <ul class="socials">
         <li><a href="https://www.linkedin.com/in/farzad-k-hedayati-89939b1b3" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
@@ -588,6 +649,127 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script>
     (function () {
+      var I18N = {
+        en: {
+          skip: "Skip to content",
+          nav: "Primary",
+          navAbout: "About",
+          navWork: "Work",
+          navMusic: "Music",
+          navContact: "Contact",
+          kicker: "Portfolio / 2026",
+          lede: "Personal site for web design, graphic design, and the work in between.",
+          meta: "Web · Graphic · Sound",
+          seeWork: "See work",
+          contactCta: "Contact",
+          railWeb: "Web design",
+          railGraphic: "Graphic design",
+          idxAbout: "02 — About",
+          aboutTitle: "About me",
+          portraitAlt: "Portrait of Farzad K. Hedayati in a dark suit",
+          aboutLead: "Hi, I’m Farzad K. Hedayati, a passionate web developer with a knack for creating clean, responsive designs.",
+          aboutP1: "With expertise in WordPress and frontend technologies like HTML, CSS, and JavaScript, I bring dynamic and user-friendly websites to life. My skills extend to UI/UX design, ensuring a seamless and engaging user experience.",
+          aboutP2: "Proficient in Figma, Photoshop, Illustrator, and Premiere, I excel in crafting visually stunning graphics, illustrations, and multimedia content. Let’s build something amazing together.",
+          craftFront: "Frontend",
+          craftDesign: "Design",
+          craftMotion: "Motion",
+          craftMotionVal: "Premiere · multimedia",
+          idxWork: "03 — Work",
+          workTitle: "Selected work",
+          featured: "Featured",
+          workBlurb: "Interactive project — open it in a new tab.",
+          openProject: "Open project",
+          moonAlt: "Sail to the Moon project artwork",
+          idxMusic: "04 — Music",
+          scTitle: "VoidFlow — Isolation on SoundCloud",
+          idxContact: "05 — Contact",
+          contactTitle: "Let’s build something",
+          desc: "Farzad K. Hedayati — web design, graphic design, UI/UX, and sound.",
+          langLabel: "Switch to Persian",
+          langBtn: "فارسی"
+        },
+        fa: {
+          skip: "رفتن به محتوا",
+          nav: "منوی اصلی",
+          navAbout: "درباره",
+          navWork: "آثار",
+          navMusic: "موسیقی",
+          navContact: "تماس",
+          kicker: "نمونه‌کار / ۲۰۲۶",
+          lede: "وب‌سایت شخصی برای طراحی وب، طراحی گرافیک، و کار میان این دو.",
+          meta: "وب · گرافیک · صدا",
+          seeWork: "دیدن آثار",
+          contactCta: "تماس",
+          railWeb: "طراحی وب",
+          railGraphic: "طراحی گرافیک",
+          idxAbout: "۰۲ — درباره",
+          aboutTitle: "درباره من",
+          portraitAlt: "پرتره Farzad K. Hedayati با کت تیره",
+          aboutLead: "سلام، من Farzad K. Hedayati هستم؛ توسعه‌دهنده وب با تمرکز روی طراحی تمیز و واکنش‌گرا.",
+          aboutP1: "با تسلط بر وردپرس و فناوری‌های فرانت‌اند مثل HTML، CSS و JavaScript سایت‌های پویا و کاربرپسند می‌سازم. طراحی UI/UX هم بخشی از کارم است تا تجربه استفاده روان و جذاب باشد.",
+          aboutP2: "در Figma، Photoshop، Illustrator و Premiere کار می‌کنم؛ گرافیک، تصویرسازی و محتوای چندرسانه‌ای. بیا با هم چیزی خوب بسازیم.",
+          craftFront: "فرانت‌اند",
+          craftDesign: "طراحی",
+          craftMotion: "موشن",
+          craftMotionVal: "پریمیر · چندرسانه‌ای",
+          idxWork: "۰۳ — آثار",
+          workTitle: "آثار منتخب",
+          featured: "منتخب",
+          workBlurb: "پروژه تعاملی — در زبانه جدید باز کنید.",
+          openProject: "باز کردن پروژه",
+          moonAlt: "اثر پروژه Sail to the Moon",
+          idxMusic: "۰۴ — موسیقی",
+          scTitle: "VoidFlow — Isolation در ساوندکلاد",
+          idxContact: "۰۵ — تماس",
+          contactTitle: "بیا چیزی بسازیم",
+          desc: "Farzad K. Hedayati — طراحی وب، طراحی گرافیک، UI/UX و صدا.",
+          langLabel: "Switch to English",
+          langBtn: "EN"
+        }
+      };
+
+      function applyLang(lang) {
+        var dict = I18N[lang] || I18N.en;
+        var root = document.documentElement;
+        root.lang = lang;
+        root.dir = lang === "fa" ? "rtl" : "ltr";
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var k = el.getAttribute("data-i18n");
+          if (dict[k]) el.textContent = dict[k];
+        });
+        document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
+          var k = el.getAttribute("data-i18n-aria");
+          if (dict[k]) el.setAttribute("aria-label", dict[k]);
+        });
+        document.querySelectorAll("[data-i18n-alt]").forEach(function (el) {
+          var k = el.getAttribute("data-i18n-alt");
+          if (dict[k]) el.setAttribute("alt", dict[k]);
+        });
+        document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
+          var k = el.getAttribute("data-i18n-title");
+          if (dict[k]) el.setAttribute("title", dict[k]);
+        });
+        var meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.setAttribute("content", dict.desc);
+        var btn = document.getElementById("lang-btn");
+        btn.textContent = dict.langBtn;
+        btn.setAttribute("aria-label", dict.langLabel);
+        btn.setAttribute("aria-pressed", lang === "fa" ? "true" : "false");
+        try { localStorage.setItem("fkh-lang", lang); } catch (e) {}
+      }
+
+      var start = "en";
+      try {
+        var q = new URLSearchParams(location.search).get("lang");
+        if (q === "fa" || q === "en") start = q;
+        else if (localStorage.getItem("fkh-lang") === "fa") start = "fa";
+      } catch (e) {}
+      applyLang(start);
+
+      document.getElementById("lang-btn").addEventListener("click", function () {
+        applyLang(document.documentElement.lang === "fa" ? "en" : "fa");
+      });
+
       var fine = window.matchMedia("(pointer: fine)").matches;
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (!fine) document.body.classList.add("has-touch");
