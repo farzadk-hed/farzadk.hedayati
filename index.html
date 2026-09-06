@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #09090b;
@@ -25,6 +26,7 @@
       --space-5: 96px;
       --font-display: "Space Grotesk", system-ui, sans-serif;
       --font-body: "Archivo", system-ui, sans-serif;
+      --font-fa: "Vazirmatn", "Archivo", system-ui, sans-serif;
       --nav-h: 64px;
     }
     *, *::before, *::after { box-sizing: border-box; }
@@ -450,47 +452,74 @@
       .btn { transition: none; }
       * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
+
+    /* --- language toggle + RTL --- */
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .lang-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 36px; padding: 0 14px;
+      border: 1px solid var(--line); background: transparent; color: var(--fg);
+      font-family: var(--font-display); font-size: 12px; letter-spacing: 0.1em;
+      text-transform: uppercase; cursor: pointer; border-radius: 2px;
+      transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+    }
+    .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    html[dir="rtl"] body { font-family: var(--font-fa); }
+    html[dir="rtl"] .display, html[dir="rtl"] h2, html[dir="rtl"] h3,
+    html[dir="rtl"] .mark, html[dir="rtl"] .craft-row dd, html[dir="rtl"] .mail,
+    html[dir="rtl"] .marquee-track span { font-family: var(--font-fa); }
+    html[dir="rtl"] .kicker, html[dir="rtl"] .nav-links a, html[dir="rtl"] .meta-col,
+    html[dir="rtl"] .index, html[dir="rtl"] .craft-row dt, html[dir="rtl"] .btn,
+    html[dir="rtl"] .rail-label, html[dir="rtl"] .lang-toggle, html[dir="rtl"] .socials a {
+      letter-spacing: normal; text-transform: none;
+    }
+    html[dir="rtl"] .display { letter-spacing: -0.02em; line-height: 1.0; }
+    html[dir="rtl"] .lede, html[dir="rtl"] .about-copy p, html[dir="rtl"] .work-copy p { max-width: 46ch; }
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main" data-en="Skip to content" data-fa="پرش به محتوا">Skip to content</a>
   <div id="progress" aria-hidden="true"></div>
   <div class="cursor" id="cursor" aria-hidden="true"></div>
 
   <header class="nav">
     <a class="mark" href="#top">FKH<span>.</span></a>
-    <nav aria-label="Primary">
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#music">Music</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+    <div class="nav-right">
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#about" data-en="About" data-fa="درباره">About</a></li>
+          <li><a href="#work" data-en="Work" data-fa="نمونه‌کارها">Work</a></li>
+          <li><a href="#music" data-en="Music" data-fa="موسیقی">Music</a></li>
+          <li><a href="#contact" data-en="Contact" data-fa="تماس">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language / تغییر زبان">فارسی</button>
+    </div>
   </header>
 
   <main id="main">
     <section class="hero grid-bg" id="top">
       <div class="hero-copy">
         <div>
-          <p class="kicker">Portfolio / 2026</p>
+          <p class="kicker" data-en="Portfolio / 2026" data-fa="نمونه‌کار / ۲۰۲۶">Portfolio / 2026</p>
           <h1 class="display" id="headline">
-            <span class="line">Farzad</span>
-            <span class="line">K. Hedayati</span>
+            <span class="line" data-en="Farzad" data-fa="فرزاد">Farzad</span>
+            <span class="line" data-en="K. Hedayati" data-fa="ک. هدایتی">K. Hedayati</span>
           </h1>
-          <p class="lede">Personal site for web design, graphic design, and the work in between.</p>
+          <p class="lede" data-en="Personal site for web design, graphic design, and the work in between." data-fa="وب‌سایت شخصی برای طراحی وب، طراحی گرافیک، و کارهای بین این دو.">Personal site for web design, graphic design, and the work in between.</p>
         </div>
         <div class="hero-meta">
-          <div class="meta-col">Web · Graphic · Sound</div>
+          <div class="meta-col" data-en="Web · Graphic · Sound" data-fa="وب · گرافیک · صدا">Web · Graphic · Sound</div>
           <div class="cta-row">
-            <a class="btn magnetic" href="#work">See work</a>
-            <a class="btn btn-ghost magnetic" href="#contact">Contact</a>
+            <a class="btn magnetic" href="#work" data-en="See work" data-fa="دیدن نمونه‌کارها">See work</a>
+            <a class="btn btn-ghost magnetic" href="#contact" data-en="Contact" data-fa="تماس">Contact</a>
           </div>
         </div>
       </div>
       <aside class="hero-rail" aria-hidden="true">
-        <p class="rail-label">Web design</p>
-        <p class="rail-label">Graphic design</p>
+        <p class="rail-label" data-en="Web design" data-fa="طراحی وب">Web design</p>
+        <p class="rail-label" data-en="Graphic design" data-fa="طراحی گرافیک">Graphic design</p>
       </aside>
     </section>
 
@@ -502,27 +531,27 @@
     </div>
 
     <section class="chapter" id="about">
-      <div class="index">02 — About</div>
+      <div class="index" data-en="02 — About" data-fa="۰۲ — درباره">02 — About</div>
       <div class="chapter-body">
-        <h2>About me</h2>
+        <h2 data-en="About me" data-fa="درباره من">About me</h2>
         <div class="about-grid">
           <img class="portrait reveal" src="img/portrait.jpg" width="640" height="800" alt="Portrait of Farzad K. Hedayati in a dark suit">
           <div class="about-copy">
-            <p class="lead reveal">Hi, I’m Farzad K. Hedayati, a passionate web developer with a knack for creating clean, responsive designs.</p>
-            <p class="reveal">With expertise in WordPress and frontend technologies like HTML, CSS, and JavaScript, I bring dynamic and user-friendly websites to life. My skills extend to UI/UX design, ensuring a seamless and engaging user experience.</p>
-            <p class="reveal">Proficient in Figma, Photoshop, Illustrator, and Premiere, I excel in crafting visually stunning graphics, illustrations, and multimedia content. Let’s build something amazing together.</p>
+            <p class="lead reveal" data-en="Hi, I’m Farzad K. Hedayati, a passionate web developer with a knack for creating clean, responsive designs." data-fa="سلام، من فرزاد ک. هدایتی هستم؛ یک توسعه‌دهنده وب علاقه‌مند با ذوق ساخت طراحی‌های تمیز و واکنش‌گرا.">Hi, I’m Farzad K. Hedayati, a passionate web developer with a knack for creating clean, responsive designs.</p>
+            <p class="reveal" data-en="With expertise in WordPress and frontend technologies like HTML, CSS, and JavaScript, I bring dynamic and user-friendly websites to life. My skills extend to UI/UX design, ensuring a seamless and engaging user experience." data-fa="با تخصص در وردپرس و فناوری‌های فرانت‌اند مانند HTML، CSS و JavaScript، وب‌سایت‌های پویا و کاربرپسند را زنده می‌کنم. مهارت‌های من به طراحی UI/UX نیز گسترش می‌یابد تا تجربه‌ای روان و جذاب برای کاربر فراهم شود.">With expertise in WordPress and frontend technologies like HTML, CSS, and JavaScript, I bring dynamic and user-friendly websites to life. My skills extend to UI/UX design, ensuring a seamless and engaging user experience.</p>
+            <p class="reveal" data-en="Proficient in Figma, Photoshop, Illustrator, and Premiere, I excel in crafting visually stunning graphics, illustrations, and multimedia content. Let’s build something amazing together." data-fa="مسلط به فیگما، فتوشاپ، ایلاستریتور و پریمیر، در ساخت گرافیک، تصویرسازی و محتوای چندرسانه‌ای چشم‌نواز مهارت دارم. بیایید با هم چیزی شگفت‌انگیز بسازیم.">Proficient in Figma, Photoshop, Illustrator, and Premiere, I excel in crafting visually stunning graphics, illustrations, and multimedia content. Let’s build something amazing together.</p>
             <dl class="craft-list">
               <div class="craft-row">
-                <dt>Frontend</dt>
+                <dt data-en="Frontend" data-fa="فرانت‌اند">Frontend</dt>
                 <dd>HTML, CSS, JavaScript, WordPress</dd>
               </div>
               <div class="craft-row">
-                <dt>Design</dt>
+                <dt data-en="Design" data-fa="طراحی">Design</dt>
                 <dd>UI/UX · Figma · Photoshop · Illustrator</dd>
               </div>
               <div class="craft-row">
-                <dt>Motion</dt>
-                <dd>Premiere · multimedia</dd>
+                <dt data-en="Motion" data-fa="موشن">Motion</dt>
+                <dd data-en="Premiere · multimedia" data-fa="پریمیر · چندرسانه‌ای">Premiere · multimedia</dd>
               </div>
             </dl>
           </div>
@@ -531,16 +560,16 @@
     </section>
 
     <section class="chapter" id="work">
-      <div class="index">03 — Work</div>
+      <div class="index" data-en="03 — Work" data-fa="۰۳ — نمونه‌کارها">03 — Work</div>
       <div class="chapter-body">
-        <h2>Selected work</h2>
+        <h2 data-en="Selected work" data-fa="نمونه‌کارهای منتخب">Selected work</h2>
         <article class="work">
           <div class="work-copy">
-            <p class="kicker">Featured</p>
+            <p class="kicker" data-en="Featured" data-fa="شاخص">Featured</p>
             <h3 class="display" style="font-size: clamp(40px, 6vw, 72px); margin: 12px 0 16px;">Sail to the Moon</h3>
-            <p>Interactive project — open it in a new tab.</p>
+            <p data-en="Interactive project — open it in a new tab." data-fa="پروژه تعاملی — در تب جدید باز کنید.">Interactive project — open it in a new tab.</p>
             <p style="margin-top:24px;">
-              <a class="btn magnetic" href="https://sailtothemoonsx.vercel.app/" target="_blank" rel="noopener noreferrer">Open project</a>
+              <a class="btn magnetic" href="https://sailtothemoonsx.vercel.app/" target="_blank" rel="noopener noreferrer" data-en="Open project" data-fa="باز کردن پروژه">Open project</a>
             </p>
           </div>
           <a class="moon magnetic" href="https://sailtothemoonsx.vercel.app/" target="_blank" rel="noopener noreferrer">
@@ -551,7 +580,7 @@
     </section>
 
     <section class="chapter" id="music">
-      <div class="index">04 — Music</div>
+      <div class="index" data-en="04 — Music" data-fa="۰۴ — موسیقی">04 — Music</div>
       <div class="chapter-body">
         <h2>VoidFlow</h2>
         <div class="music-wrap">
@@ -567,8 +596,8 @@
     </section>
 
     <section class="contact" id="contact">
-      <p class="kicker">05 — Contact</p>
-      <h2>Let’s build something</h2>
+      <p class="kicker" data-en="05 — Contact" data-fa="۰۵ — تماس">05 — Contact</p>
+      <h2 data-en="Let’s build something" data-fa="بیایید چیزی بسازیم">Let’s build something</h2>
       <a class="mail magnetic" href="mailto:farzadk.hedayati@outlook.com">farzadk.hedayati@outlook.com</a>
       <ul class="socials">
         <li><a href="https://www.linkedin.com/in/farzad-k-hedayati-89939b1b3" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
@@ -580,7 +609,7 @@
   </main>
 
   <footer>
-    <span>© 2026 Farzad K. Hedayati</span>
+    <span data-en="© 2026 Farzad K. Hedayati" data-fa="© ۲۰۲۶ فرزاد ک. هدایتی">© 2026 Farzad K. Hedayati</span>
     <span>Redesign · nbg1</span>
   </footer>
 
@@ -588,6 +617,31 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script>
     (function () {
+
+      var LANG_KEY = "fkh-lang";
+      var toggle = document.getElementById("langToggle");
+      function applyLang(l) {
+        var html = document.documentElement;
+        html.lang = l;
+        html.dir = (l === "fa") ? "rtl" : "ltr";
+        document.querySelectorAll("[data-en]").forEach(function (el) {
+          var v = el.getAttribute("data-" + l);
+          if (v !== null) el.textContent = v;
+        });
+        if (toggle) {
+          toggle.textContent = (l === "fa") ? "EN" : "فارسی";
+          toggle.setAttribute("aria-pressed", l === "fa" ? "true" : "false");
+        }
+        try { localStorage.setItem(LANG_KEY, l); } catch (e) {}
+      }
+      var saved = "en";
+      try { saved = localStorage.getItem(LANG_KEY) || "en"; } catch (e) {}
+      applyLang(saved);
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          applyLang(document.documentElement.lang === "fa" ? "en" : "fa");
+        });
+      }
       var fine = window.matchMedia("(pointer: fine)").matches;
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (!fine) document.body.classList.add("has-touch");
