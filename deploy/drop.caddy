@@ -1,0 +1,22 @@
+# Fragment served on farzad.46.225.91.43.sslip.io (merged into the nbg1 Caddyfile).
+# Portfolio at / ; authenticated file portal at /drop.
+farzad.46.225.91.43.sslip.io {
+	encode gzip
+	request_body {
+		max_size 2GB
+	}
+	header Strict-Transport-Security "max-age=31536000"
+	redir /drop /drop/ 308
+	redir /login /drop/login 302
+	handle_path /drop/* {
+		reverse_proxy farzad-drop:8080 {
+			transport http {
+				read_timeout 1h
+				write_timeout 1h
+			}
+		}
+	}
+	handle {
+		reverse_proxy farzad-portfolio:8080
+	}
+}
